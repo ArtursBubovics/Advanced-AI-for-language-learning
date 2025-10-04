@@ -11,7 +11,7 @@ while True:
     # Шаг 1: Пользовательский ввод
     print(f"Пользователь: '{entered_text}'")
 
-    response = handle_user_request(user_id, entered_text)
+    response = handle_user_request(user_id, entered_text) #!!!!!!!!!!!!!обрабатывать ошибки, которые могут вернуться
 
     # Шаг 5: Получение ответа и завершение цикла
     print(f"Ответ ИИ: {response}")

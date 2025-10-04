@@ -1,11 +1,28 @@
 import requests
 import json
+import re
 
 from AI.Appeal_to_AI import appeal_to_ai
 
+def get_topic_from_ai(user_message):
+    prompt = f"Определи основную тему следующего сообщения. Ответь одним-двумя словами, включая ключевые слова из запроса, без знаков препинания: {user_message}"
+    statusIsTrue, ai_response = appeal_to_ai(prompt)
+    if(statusIsTrue):
+        print("\033[32m   -> Ответ от ИИ успешно получен.\033[0m")
+        full_response = ai_response['response'].strip()
+
+        cleaned_response = re.sub(r'<think>.*?</think>', '', full_response, flags=re.DOTALL).strip()
+        if cleaned_response:
+            return (True, cleaned_response)
+        else:
+            print("\033[31m   ✗ Ошибка: Не удалось извлечь тему из ответа ИИ.\033[0m")
+            return (False, "")
+    else:
+        print("   ✗ Ошибка: Не удалось получить ответ от ИИ.")
+        return (False, "")
 
 def get_analyzed_data(prompt):
-    print("\n\033[32m--- Шаг 5: В функции(Анализ и сохранение новой 'памяти') ---\033[0m")
+    print("\n\033[32m--- Шаг 6: В функции(Анализ и сохранение новой 'памяти') ---\033[0m")
     print("\033[32m   -> Создаётся объединённый промпт для ИИ...\033[0m")
 
 
